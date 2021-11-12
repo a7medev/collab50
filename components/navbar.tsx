@@ -1,0 +1,65 @@
+import { useState } from 'react';
+import Link from 'next/link';
+
+import cn from '../utils/classnames';
+
+interface NavLinkProps {
+  href: string;
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ children, href }) => {
+  return (
+    <Link href={href}>
+      <a className="block mt-4 lg:inline-block lg:mt-0 lg:mr-4 text-teal-200 hover:text-green-500">
+        {children}
+      </a>
+    </Link>
+  );
+};
+
+const Navbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <nav className="p-6 shadow-sm">
+      <div className="container mx-auto flex items-center justify-between flex-wrap">
+        <div className="flex items-center flex-shrink-0 mr-6">
+          <Link href="/">
+            <a className="font-bold text-xl">
+              Collab<span className="text-green-500">50</span>
+            </a>
+          </Link>
+        </div>
+        <div className="block lg:hidden">
+          <button
+            onClick={() => setIsOpen((curr) => !curr)}
+            className="flex items-center hover:text-green-500"
+          >
+            <svg
+              className="fill-current h-5 w-5"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>Menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+          </button>
+        </div>
+        <div
+          className={cn(
+            isOpen ? 'block' : 'hidden',
+            'w-full flex-grow lg:flex lg:items-center lg:w-auto'
+          )}
+        >
+          <div className="text-sm lg:flex-grow">
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/login">Login</NavLink>
+            <NavLink href="/register">Register</NavLink>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
