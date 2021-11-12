@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import prisma from '../../config/prisma';
+import setCookie from '../../utils/set-cookie';
 
 const userSchema = Yup.object({
   username: Yup.string().label('Username').trim().lowercase().required(),
@@ -40,6 +41,8 @@ export default async function handler(
       process.env.ACCESS_TOKEN_SECRET as string,
       { expiresIn: '7d' }
     );
+
+    setCookie(res, 'accessToken', accessToken, { httpOnly: true });
 
     res.status(201).json({
       data: {
