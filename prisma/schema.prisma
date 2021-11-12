@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id       Int              @id @default(autoincrement())
-  name     String           @unique
+  name     String
   username String           @unique
   password String
   projects UsersOnProject[] @relation("user")
