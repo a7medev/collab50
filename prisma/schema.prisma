@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int              @id @default(autoincrement())
+  name     String           @unique
+  username String           @unique
+  password String
+  projects UsersOnProject[] @relation("user")
+}
+
+model Project {
+  id      Int              @id @default(autoincrement())
+  name    String           @unique
+  ownerId Int              @unique
+  members UsersOnProject[] @relation("project")
+  todos   Todos[]          @relation("todos")
+}
+
+model Todos {
+  id        Int     @id @default(autoincrement())
+  title     String
+  completed Boolean
+  project   Project @relation("todos", fields: [projectId], references: [id])
+  projectId Int
+}
+
+enum Role {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+model UsersOnProject {
+  id        Int     @id @default(autoincrement())
+  role      Role    @default(VIEWER)
+  userId    Int     @unique
+  user      User    @relation(fields: [userId], name: "user", references: [id])
+  project   Project @relation(fields: [projectId], name: "project", references: [id])
+  projectId Int     @unique
+}
