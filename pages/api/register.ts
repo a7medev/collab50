@@ -24,6 +24,15 @@ export default async function handler(
   try {
     const data = await userSchema.validate(req.body);
 
+    const usernameExists = await prisma.user.findFirst({
+      where: { username: data.username },
+      select: { username: true },
+    });
+
+    if (usernameExists) {
+      return res.status(400).json({ message: 'Username already exists' });
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(data.password, salt);
 
