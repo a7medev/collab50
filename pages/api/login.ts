@@ -5,18 +5,14 @@ import jwt from 'jsonwebtoken';
 
 import prisma from '../../config/prisma';
 import setCookie from '../../utils/set-cookie';
-
-const userSchema = Yup.object({
-  username: Yup.string().label('Username').trim().lowercase().required(),
-  password: Yup.string().label('Password').required(),
-}).required();
+import loginSchema from '../../validation/login-schema';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const data = await userSchema.validate(req.body);
+    const data = await loginSchema.validate(req.body);
 
     const user = await prisma.user.findFirst({
       where: { username: data.username },
