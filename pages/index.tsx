@@ -1,20 +1,13 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import Navbar from '../components/navbar';
+import Layout from '../components/layout';
 import todoGirlImage from '../images/todo-girl.svg';
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <Head>
-        <title>Collab50</title>
-      </Head>
-
-      <Navbar />
-
+    <Layout title="Home">
       <main className="container mx-auto p-6 text-center lg:text-left lg:flex">
         <div className="lg:order-2">
           <Image src={todoGirlImage} alt="Girl with Todo List" />
@@ -36,7 +29,7 @@ const Home: NextPage = () => {
           </Link>
         </div>
       </main>
-    </div>
+    </Layout>
   );
 };
 
