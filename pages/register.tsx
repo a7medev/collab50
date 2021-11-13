@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <Layout title="Home">
       <main className="container mx-auto p-6">
-        <div className="max-w-xl w-8/12 mx-auto rounded-lg p-5 shadow text-center">
+        <div className="max-w-xl w-11/12 mx-auto rounded-lg p-5 shadow text-center">
           <h1 className="text-3xl font-bold mb-5">Register now!</h1>
 
           <form>
