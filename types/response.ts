@@ -1,6 +1,6 @@
-export interface SuccessResponse<D, M = string | undefined> {
+export interface SuccessResponse<D, M = string> {
   data: D;
-  message: M;
+  message?: M;
 }
 
 export interface ErrorResponse {

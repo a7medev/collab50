@@ -42,7 +42,10 @@ export default async function handler(
       { expiresIn: '7d' }
     );
 
-    setCookie(res, 'accessToken', accessToken, { httpOnly: true });
+    setCookie(res, 'accessToken', accessToken, {
+      maxAge: 3600 * 1000 * 24 * 7,
+      httpOnly: true,
+    });
 
     res.status(201).json({
       data: {

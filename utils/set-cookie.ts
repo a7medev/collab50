@@ -15,6 +15,8 @@ const setCookie = (
     options.maxAge /= 1000;
   }
 
+  options.path ??= '/';
+
   res.setHeader('Set-Cookie', serialize(name, stringValue, options));
 };
 
