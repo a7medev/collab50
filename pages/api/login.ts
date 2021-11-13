@@ -1,15 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import type { User } from '@prisma/client';
 import * as Yup from 'yup';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+import type Response from '../../types/response';
 import prisma from '../../config/prisma';
 import setCookie from '../../utils/set-cookie';
 import loginSchema from '../../validation/login-schema';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<
+    Response<{ user: Omit<User, 'password'>; accessToken: string }>
+  >
 ) {
   try {
     const data = await loginSchema.validate(req.body);

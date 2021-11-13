@@ -1,23 +1,30 @@
 import type { NextPage } from 'next';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 
+import type { ErrorResponse } from '../types/response';
 import Button, { LinkButton } from '../components/button';
 import Input from '../components/input';
 import Layout from '../components/layout';
+import ErrorBox from '../components/error-box';
 import registerSchema from '../validation/register-schema';
 
 const Register: NextPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
+  const [error, setError] = useState<ErrorResponse | null>(null);
 
   const onSubmit = async (data: unknown) => {
+    setError(null);
+
     const res = await fetch('/api/register', {
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +32,8 @@ const Register: NextPage = () => {
     });
 
     if (!res.ok) {
-      // TODO: handle error
+      const err: ErrorResponse = await res.json();
+      return setError(err);
     }
 
     // TODO: handle registration success
@@ -36,6 +44,8 @@ const Register: NextPage = () => {
       <main className="container mx-auto p-6">
         <div className="max-w-xl w-11/12 mx-auto rounded-lg p-5 shadow text-center">
           <h1 className="text-3xl font-bold mb-5">Register now!</h1>
+
+          {error && <ErrorBox>{error.message}</ErrorBox>}
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -58,7 +68,9 @@ const Register: NextPage = () => {
               {...register('password')}
             />
 
-            <Button className="w-full mb-3">Register</Button>
+            <Button className="w-full mb-3" disabled={isSubmitting}>
+              Register
+            </Button>
 
             <LinkButton
               href="/login"
