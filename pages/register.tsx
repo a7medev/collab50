@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
@@ -11,6 +12,9 @@ import ErrorBox from '../components/error-box';
 import registerSchema from '../validation/register-schema';
 
 const Register: NextPage = () => {
+  const router = useRouter();
+  const [error, setError] = useState<ErrorResponse | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -18,7 +22,6 @@ const Register: NextPage = () => {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  const [error, setError] = useState<ErrorResponse | null>(null);
 
   const onSubmit = async (data: unknown) => {
     setError(null);
@@ -36,7 +39,7 @@ const Register: NextPage = () => {
       return setError(err);
     }
 
-    // TODO: handle registration success
+    router.push('/projects');
   };
 
   return (
