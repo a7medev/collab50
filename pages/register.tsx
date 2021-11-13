@@ -1,20 +1,62 @@
 import type { NextPage } from 'next';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+
 import Button, { LinkButton } from '../components/button';
 import Input from '../components/input';
-
 import Layout from '../components/layout';
+import registerSchema from '../validation/register-schema';
 
-const Home: NextPage = () => {
+const Register: NextPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
+
+  const onSubmit = async (data: unknown) => {
+    const res = await fetch('/api/register', {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!res.ok) {
+      // TODO: handle error
+    }
+
+    // TODO: handle registration success
+  };
+
   return (
-    <Layout title="Home">
+    <Layout title="Register">
       <main className="container mx-auto p-6">
         <div className="max-w-xl w-11/12 mx-auto rounded-lg p-5 shadow text-center">
           <h1 className="text-3xl font-bold mb-5">Register now!</h1>
 
-          <form>
-            <Input placeholder="Full Name" className="mb-3" />
-            <Input placeholder="Username" className="mb-3" />
-            <Input placeholder="Password" type="password" className="mb-4" />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              placeholder="Full Name"
+              className="mb-3"
+              error={errors.name}
+              {...register('name')}
+            />
+            <Input
+              placeholder="Username"
+              className="mb-3"
+              error={errors.username}
+              {...register('username')}
+            />
+            <Input
+              placeholder="Password"
+              type="password"
+              className="mb-4"
+              error={errors.password}
+              {...register('password')}
+            />
 
             <Button className="w-full mb-3">Register</Button>
 
@@ -33,4 +75,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Register;
