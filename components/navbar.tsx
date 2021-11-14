@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import type { User } from '@prisma/client';
 import Link from 'next/link';
+import { useState } from 'react';
+import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button';
 
 import cn from '../utils/classnames';
+import Avatar from './avatar';
+import { useRouter } from 'next/router';
 
 interface NavLinkProps {
   href: string;
@@ -17,8 +21,21 @@ const NavLink: React.FC<NavLinkProps> = ({ children, href }) => {
   );
 };
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  user?: Omit<User, 'password'>;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ user }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = async () => {
+    await fetch('/api/logout', {
+      method: 'POST',
+    });
+
+    router.push('/');
+  };
 
   return (
     <nav className="p-6 shadow-sm">
@@ -30,7 +47,7 @@ const Navbar: React.FC = () => {
             </a>
           </Link>
         </div>
-        <div className="block lg:hidden">
+        <div className="ml-auto mr-4 lg:mr-0 lg:ml-0 block lg:hidden">
           <button
             onClick={() => setIsOpen((curr) => !curr)}
             className="flex items-center hover:text-green-500"
@@ -45,16 +62,48 @@ const Navbar: React.FC = () => {
             </svg>
           </button>
         </div>
+
+        {user && (
+          <div className="lg:ml-auto lg:order-3">
+            <Menu>
+              <MenuButton className="bg-green-100 text-green-600 py-2 px-4 rounded-lg">
+                {user.name} <span aria-hidden>▾</span>
+              </MenuButton>
+
+              <MenuList className="bg-white text-center rounded-lg border border-gray-200 p-2 mt-1 w-72">
+                <div className="flex items-center p-3">
+                  <Avatar username={user.username} />
+
+                  <div className="ml-3">
+                    <p className="text-lg">{user.name}</p>
+                    <p className="text-gray-500">@{user.username}</p>
+                  </div>
+                </div>
+
+                <MenuItem onSelect={handleLogout} className="px-4 rounded p-2">
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </div>
+        )}
+
         <div
           className={cn(
             isOpen ? 'block' : 'hidden',
-            'w-full flex-grow lg:flex lg:items-center lg:w-auto'
+            'w-full flex-grow lg:flex lg:items-center lg:w-auto lg:order-2'
           )}
         >
           <div className="text-sm lg:flex-grow">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/login">Login</NavLink>
-            <NavLink href="/register">Register</NavLink>
+            {user ? (
+              <NavLink href="/projects">Projects</NavLink>
+            ) : (
+              <>
+                <NavLink href="/">Home</NavLink>
+                <NavLink href="/login">Login</NavLink>
+                <NavLink href="/register">Register</NavLink>
+              </>
+            )}
           </div>
         </div>
       </div>

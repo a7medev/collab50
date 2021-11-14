@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[data-reach-menu-item][data-selected] {
+  @apply bg-green-100 text-green-600 cursor-pointer;
+}
