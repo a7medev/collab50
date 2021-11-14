@@ -16,18 +16,20 @@ model User {
 }
 
 model Project {
-  id      Int              @id @default(autoincrement())
-  name    String           @unique
-  ownerId Int              @unique
-  members UsersOnProject[] @relation("project")
-  todos   Todos[]          @relation("todos")
+  id        Int              @id @default(autoincrement())
+  name      String
+  createdAt DateTime         @default(now())
+  ownerId   Int
+  members   UsersOnProject[] @relation("project")
+  todos     Todos[]          @relation("todos")
 }
 
 model Todos {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   title     String
   completed Boolean
-  project   Project @relation("todos", fields: [projectId], references: [id])
+  createdAt DateTime @default(now())
+  project   Project  @relation("todos", fields: [projectId], references: [id])
   projectId Int
 }
 
@@ -40,8 +42,8 @@ enum Role {
 model UsersOnProject {
   id        Int     @id @default(autoincrement())
   role      Role    @default(VIEWER)
-  userId    Int     @unique
+  userId    Int
   user      User    @relation(fields: [userId], name: "user", references: [id])
   project   Project @relation(fields: [projectId], name: "project", references: [id])
-  projectId Int     @unique
+  projectId Int
 }
