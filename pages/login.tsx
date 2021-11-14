@@ -9,7 +9,10 @@ import Button, { LinkButton } from '../components/button';
 import Input from '../components/input';
 import Layout from '../components/layout';
 import ErrorBox from '../components/error-box';
+import withoutAuth from '../utils/without-auth';
 import loginSchema from '../validation/login-schema';
+
+export const getServerSideProps = withoutAuth();
 
 const Login: NextPage = () => {
   const router = useRouter();

@@ -3,7 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import Layout from '../components/layout';
+import withoutAuth from '../utils/without-auth';
 import todoGirlImage from '../images/todo-girl.svg';
+
+export const getServerSideProps = withoutAuth();
 
 const Home: NextPage = () => {
   return (
