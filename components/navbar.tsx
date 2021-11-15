@@ -74,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                 <div className="flex items-center p-3">
                   <Avatar username={user.username} />
 
-                  <div className="ml-3">
+                  <div className="ml-3 text-left">
                     <p className="text-lg">{user.name}</p>
                     <p className="text-gray-500">@{user.username}</p>
                   </div>
