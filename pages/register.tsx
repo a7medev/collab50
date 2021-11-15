@@ -74,16 +74,14 @@ const Register: NextPage = () => {
               {...register('password')}
             />
 
-            <Button className="w-full mb-3" disabled={isSubmitting}>
+            <Button
+              className="w-full mb-3 bg-green-500 hover:bg-green-600"
+              disabled={isSubmitting}
+            >
               Register
             </Button>
 
-            <LinkButton
-              href="/login"
-              className="w-full"
-              color="gray-500"
-              hoverColor="gray-600"
-            >
+            <LinkButton href="/login" className="w-full">
               Login Instead
             </LinkButton>
           </form>
