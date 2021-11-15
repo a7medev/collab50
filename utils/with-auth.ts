@@ -1,5 +1,6 @@
 import type { GetServerSideProps } from 'next';
 
+import setCookie from './set-cookie';
 import userInCookies from './user-in-cookies';
 
 const withAuth = (
@@ -9,6 +10,8 @@ const withAuth = (
     const user = await userInCookies(context.req.cookies);
 
     if (!user) {
+      setCookie(context.res, 'accessToken', '', { maxAge: -1 });
+
       return {
         redirect: { destination: '/login', permanent: false },
       };

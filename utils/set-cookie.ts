@@ -1,8 +1,8 @@
-import type { NextApiResponse } from 'next';
+import type { ServerResponse } from 'http';
 import { CookieSerializeOptions, serialize } from 'cookie';
 
 const setCookie = (
-  res: NextApiResponse,
+  res: ServerResponse,
   name: string,
   value: unknown,
   options: CookieSerializeOptions = {}
