@@ -81,7 +81,10 @@ const Register: NextPage = () => {
               Register
             </Button>
 
-            <LinkButton href="/login" className="w-full">
+            <LinkButton
+              href="/login"
+              className="w-full bg-gray-500 hover:bg-gray-600"
+            >
               Login Instead
             </LinkButton>
           </form>
