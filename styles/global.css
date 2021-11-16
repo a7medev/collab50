@@ -5,3 +5,8 @@
 [data-reach-menu-item][data-selected] {
   @apply bg-green-100 text-green-600 cursor-pointer;
 }
+
+[data-reach-dialog-content] {
+  max-width: 500px;
+  width: 90% !important;
+}
