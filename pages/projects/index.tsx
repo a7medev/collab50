@@ -12,6 +12,8 @@ import ProjectCard from '../../components/project-card';
 import Dialog from '../../components/dialog';
 import NewProjectForm from '../../components/new-project-form';
 import withAuth from '../../utils/with-auth';
+import ErrorBox from '../../components/error-box';
+import Button from '../../components/button';
 
 export const getServerSideProps = withAuth();
 
@@ -54,11 +56,28 @@ const Projects: NextPage<ProjectsProps> = ({ user }) => {
           )}
         </AnimatePresence>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-          {data?.data.projects.map((project) => (
-            <ProjectCard project={project} key={project.project.id} />
-          ))}
-        </div>
+        {error ? (
+          <ErrorBox>{error.info?.message || 'Something went wrong'}</ErrorBox>
+        ) : data && data.data.projects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+            {data?.data.projects.map((project) => (
+              <ProjectCard project={project} key={project.project.id} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center">
+            <h3 className="text-xl italic text-gray-500 mb-3">
+              You don&apos;t have any projects yet
+            </h3>
+
+            <Button
+              onClick={() => setShowNewDialog(true)}
+              className="bg-green-200 hover:bg-green-300 text-green-600"
+            >
+              Add Your First Project
+            </Button>
+          </div>
+        )}
       </main>
     </Layout>
   );
