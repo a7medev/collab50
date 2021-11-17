@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../../config/prisma';
-import userInCookies from '../../../utils/user-in-cookies';
+
+import prisma from '../../../../config/prisma';
+import userInCookies from '../../../../utils/user-in-cookies';
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,7 +28,7 @@ export default async function handler(
       projectId,
       userId: user.id,
     },
-    include: { project: true },
+    include: { project: { include: { todos: true } } },
   });
 
   if (!project) {

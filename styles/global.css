@@ -10,3 +10,13 @@
   max-width: 500px;
   width: 90% !important;
 }
+
+[data-reach-custom-checkbox] {
+  @apply border-2 rounded-md w-5 h-5 !important;
+}
+[data-reach-custom-checkbox][data-state='checked'] {
+  @apply bg-green-500 border-green-500;
+}
+[data-reach-custom-checkbox][data-state='unchecked'] {
+  @apply bg-white;
+}

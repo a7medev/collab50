@@ -2,11 +2,17 @@ import '@reach/checkbox/styles.css';
 import { CustomCheckbox, CustomCheckboxProps } from '@reach/checkbox';
 import cn from '../utils/classnames';
 
-interface CheckboxProps extends CustomCheckboxProps {}
+interface CheckboxProps extends CustomCheckboxProps {
+  className?: string;
+}
 
-const Checkbox: React.FC<CheckboxProps> = ({ children, ...props }) => {
+const Checkbox: React.FC<CheckboxProps> = ({
+  children,
+  className,
+  ...props
+}) => {
   return (
-    <label className="inline-flex items-center">
+    <label className={className}>
       <CustomCheckbox {...props}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

@@ -21,13 +21,13 @@ model Project {
   createdAt DateTime         @default(now())
   ownerId   Int
   members   UsersOnProject[] @relation("project")
-  todos     Todos[]          @relation("todos")
+  todos     Todo[]           @relation("todos")
 }
 
-model Todos {
+model Todo {
   id        Int      @id @default(autoincrement())
   title     String
-  completed Boolean
+  completed Boolean  @default(false)
   createdAt DateTime @default(now())
   project   Project  @relation("todos", fields: [projectId], references: [id])
   projectId Int
