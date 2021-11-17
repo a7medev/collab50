@@ -27,8 +27,8 @@ const TodoList: React.FC<TodoListProps> = ({
 
       <div className="md:grid md:grid-cols-2 md:gap-4">
         <details open>
-          <summary className="font-bold italic mb-2 md:mb-0 cursor-pointer">
-            Inomplete
+          <summary className="font-bold italic mb-2 cursor-pointer">
+            Incomplete
           </summary>
           {incomplete.map((todo) => (
             <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
