@@ -25,23 +25,25 @@ const TodoList: React.FC<TodoListProps> = ({
 
       <NewTodoForm projectId={projectId} onAdd={onAdd} />
 
-      <details open>
-        <summary className="font-bold italic mb-2 cursor-pointer">
-          Inomplete
-        </summary>
-        {incomplete.map((todo) => (
-          <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
-        ))}
-      </details>
+      <div className="md:grid md:grid-cols-2 md:gap-4">
+        <details open>
+          <summary className="font-bold italic mb-2 md:mb-0 cursor-pointer">
+            Inomplete
+          </summary>
+          {incomplete.map((todo) => (
+            <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
+          ))}
+        </details>
 
-      <details>
-        <summary className="font-bold italic mb-2 cursor-pointer">
-          Completed
-        </summary>
-        {completed.map((todo) => (
-          <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
-        ))}
-      </details>
+        <details open>
+          <summary className="font-bold italic mb-2 cursor-pointer">
+            Completed
+          </summary>
+          {completed.map((todo) => (
+            <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
+          ))}
+        </details>
+      </div>
     </div>
   );
 };

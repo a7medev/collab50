@@ -28,7 +28,9 @@ export default async function handler(
       projectId,
       userId: user.id,
     },
-    include: { project: { include: { todos: true } } },
+    include: {
+      project: { include: { todos: { orderBy: { id: 'asc' } } } },
+    },
   });
 
   if (!project) {
