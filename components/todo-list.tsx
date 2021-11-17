@@ -16,15 +16,32 @@ const TodoList: React.FC<TodoListProps> = ({
   onAdd,
   onItemCheck,
 }) => {
+  const completed = todos.filter((todo) => todo.completed);
+  const incomplete = todos.filter((todo) => !todo.completed);
+
   return (
     <div>
       <h3 className="text-lg font-semibold mb-3">Todos</h3>
 
       <NewTodoForm projectId={projectId} onAdd={onAdd} />
 
-      {todos.map((todo) => (
-        <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
-      ))}
+      <details open>
+        <summary className="font-bold italic mb-2 cursor-pointer">
+          Inomplete
+        </summary>
+        {incomplete.map((todo) => (
+          <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
+        ))}
+      </details>
+
+      <details>
+        <summary className="font-bold italic mb-2 cursor-pointer">
+          Completed
+        </summary>
+        {completed.map((todo) => (
+          <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
+        ))}
+      </details>
     </div>
   );
 };
