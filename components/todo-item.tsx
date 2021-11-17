@@ -2,6 +2,7 @@ import type { ChangeEvent } from 'react';
 import type { Todo } from '@prisma/client';
 
 import Checkbox from './checkbox';
+import cn from '../utils/classnames';
 
 interface TodoItemProps {
   todo: Todo;
@@ -24,7 +25,10 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheck }) => {
 
   return (
     <Checkbox
-      className="border hover:bg-green-50 hover:border-green-300 rounded-lg px-4 py-3 mb-3 flex items-center"
+      className={cn(
+        'border hover:bg-green-50 hover:border-green-300 rounded-lg px-4 py-3 mb-3 flex items-center',
+        todo.completed && 'line-through text-gray-500'
+      )}
       onChange={handleChange}
       checked={todo.completed}
     >
