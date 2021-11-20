@@ -28,6 +28,12 @@ export default async function handler(
       });
     }
 
+    if (isNaN(todoId) || todoId < 0) {
+      return res.status(400).json({
+        message: 'Invalid todo ID',
+      });
+    }
+
     const data = await checkTodoSchema.validate(req.body);
 
     const project = await prisma.usersOnProject.findFirst({
