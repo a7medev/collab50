@@ -29,7 +29,7 @@ model Todo {
   title     String
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
-  project   Project  @relation("todos", fields: [projectId], references: [id])
+  project   Project  @relation("todos", fields: [projectId], references: [id], onDelete: Cascade)
   projectId Int
 }
 
@@ -43,7 +43,7 @@ model UsersOnProject {
   id        Int     @id @default(autoincrement())
   role      Role    @default(VIEWER)
   userId    Int
-  user      User    @relation(fields: [userId], name: "user", references: [id])
-  project   Project @relation(fields: [projectId], name: "project", references: [id])
+  user      User    @relation(fields: [userId], name: "user", references: [id], onDelete: Cascade)
+  project   Project @relation(fields: [projectId], name: "project", references: [id], onDelete: Cascade)
   projectId Int
 }
