@@ -29,7 +29,9 @@ export default async function handler(
       userId: user.id,
     },
     include: {
-      project: { include: { todos: { orderBy: { id: 'asc' } } } },
+      project: {
+        include: { todos: { orderBy: { id: 'asc' } }, members: true },
+      },
     },
   });
 
