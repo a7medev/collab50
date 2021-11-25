@@ -8,9 +8,11 @@ interface TodoListProps {
   onAdd: (todo: Todo) => void;
   onItemCheck: (itemId: number, checked: boolean) => void;
   todos: Todo[];
+  className?: string;
 }
 
 const TodoList: React.FC<TodoListProps> = ({
+  className,
   todos,
   projectId,
   onAdd,
@@ -20,7 +22,7 @@ const TodoList: React.FC<TodoListProps> = ({
   const incomplete = todos.filter((todo) => !todo.completed);
 
   return (
-    <div>
+    <div className={className}>
       <h3 className="text-lg font-semibold mb-3">Todos</h3>
 
       <NewTodoForm projectId={projectId} onAdd={onAdd} />

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import type { Todo, Project, UsersOnProject } from '@prisma/client';
+import type { Todo, Project, UsersOnProject, User } from '@prisma/client';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
@@ -10,13 +10,21 @@ import ErrorBox from '../../components/error-box';
 import withAuth from '../../utils/with-auth';
 import TodoList from '../../components/todo-list';
 import produce from 'immer';
+import Members from '../../components/members';
 
 export const getServerSideProps = withAuth();
 
 interface ProjectProps extends AuthPageProps {}
 
 type Result = SuccessResponse<{
-  project: UsersOnProject & { project: Project & { todos: Todo[] } };
+  project: UsersOnProject & {
+    project: Project & {
+      todos: Todo[];
+      members: (UsersOnProject & {
+        user: Pick<User, 'id' | 'name' | 'username'>;
+      })[];
+    };
+  };
 }>;
 
 const Project: NextPage<ProjectProps> = ({ user }) => {
@@ -58,12 +66,19 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
           <ErrorBox>{error.info?.message || 'Something went wrong'}</ErrorBox>
         ) : (
           data && (
-            <TodoList
-              todos={data.data.project.project.todos}
-              projectId={data.data.project.project.id}
-              onItemCheck={handleItemCheck}
-              onAdd={handleAdd}
-            />
+            <div className="grid grid-cols-6 gap-6">
+              <Members
+                className="col-span-2"
+                members={data.data.project.project.members}
+              />
+              <TodoList
+                className="col-span-4"
+                todos={data.data.project.project.todos}
+                projectId={data.data.project.project.id}
+                onItemCheck={handleItemCheck}
+                onAdd={handleAdd}
+              />
+            </div>
           )
         )}
       </main>

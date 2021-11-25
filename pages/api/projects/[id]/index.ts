@@ -30,7 +30,14 @@ export default async function handler(
     },
     include: {
       project: {
-        include: { todos: { orderBy: { id: 'asc' } }, members: true },
+        include: {
+          todos: { orderBy: { id: 'asc' } },
+          members: {
+            include: {
+              user: { select: { id: true, name: true, username: true } },
+            },
+          },
+        },
       },
     },
   });
