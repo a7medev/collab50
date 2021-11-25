@@ -11,6 +11,7 @@
     "@hookform/resolvers": "^2.8.3",
     "@prisma/client": "^3.4.2",
     "@reach/checkbox": "^0.16.0",
+    "@reach/combobox": "^0.16.4",
     "@reach/dialog": "^0.16.2",
     "@reach/menu-button": "^0.16.2",
     "bcryptjs": "^2.4.3",
