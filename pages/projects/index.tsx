@@ -14,6 +14,7 @@ import NewProjectForm from '../../components/new-project-form';
 import withAuth from '../../utils/with-auth';
 import ErrorBox from '../../components/error-box';
 import Button from '../../components/button';
+import AddButton from '../../components/add-button';
 
 export const getServerSideProps = withAuth();
 
@@ -32,13 +33,10 @@ const Projects: NextPage<ProjectsProps> = ({ user }) => {
       <main className="container mx-auto p-6">
         <h1 className="text-xl font-semibold mb-4">
           Projects
-          <button
+          <AddButton
             onClick={() => setShowNewDialog(true)}
-            className="ml-4 h-7 w-7 rounded-full inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white transition-colors"
-          >
-            <span aria-hidden>+</span>
-            <span className="sr-only">Add new project</span>
-          </button>
+            hint="Add new project"
+          />
         </h1>
 
         <AnimatePresence>

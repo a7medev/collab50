@@ -8,7 +8,8 @@ const useUsersSearch = (query: string) => {
     if (!q.trim()) return;
 
     const res = await fetch(
-      `/api/users/search?q=${encodeURIComponent(q.trim())}`
+      `/api/users/search?q=${encodeURIComponent(q.trim())}`,
+      { credentials: 'include' }
     );
     const { data } = await res.json();
     setUsers(data.users);

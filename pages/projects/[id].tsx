@@ -68,6 +68,7 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
           data && (
             <div className="grid grid-cols-6 gap-6">
               <Members
+                projectId={data.data.project.project.id}
                 className="col-span-2"
                 members={data.data.project.project.members}
               />

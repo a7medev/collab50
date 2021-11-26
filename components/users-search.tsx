@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import {
   Combobox,
   ComboboxInput,
@@ -6,23 +6,28 @@ import {
   ComboboxList,
   ComboboxOption,
 } from '@reach/combobox';
-// import '@reach/combobox/styles.css';
 
-import Input from './input';
+import Input, { InputProps } from './input';
+import UserDetails from './user-details';
 import useUsersSearch from '../utils/use-users-search';
 
-const UsersSearch: React.FC = () => {
+const UsersSearch = React.forwardRef<
+  HTMLInputElement,
+  React.ComponentProps<typeof ComboboxInput> & InputProps
+>(({ onChange, ...props }, ref) => {
   const [query, setQuery] = useState('');
   const users = useUsersSearch(query);
 
   return (
-    <Combobox aria-label="Cities">
+    <Combobox aria-label="Users">
       <ComboboxInput
+        {...props}
         as={Input}
-        placeholder="Search users"
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setQuery(e.target.value)
-        }
+        ref={ref}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          onChange && onChange(e);
+          setQuery(e.target.value);
+        }}
       />
 
       {users && (
@@ -30,7 +35,15 @@ const UsersSearch: React.FC = () => {
           {users.length > 0 ? (
             <ComboboxList>
               {users.map((user) => {
-                return <ComboboxOption key={user.id} value={user.name} />;
+                return (
+                  <ComboboxOption
+                    key={user.id}
+                    value={user.username}
+                    className="hover:bg-green-50 cursor-pointer py-2 px-3 rounded transition-colors"
+                  >
+                    <UserDetails user={user} />
+                  </ComboboxOption>
+                );
               })}
             </ComboboxList>
           ) : (
@@ -40,6 +53,8 @@ const UsersSearch: React.FC = () => {
       )}
     </Combobox>
   );
-};
+});
+
+UsersSearch.displayName = 'UsersSearch';
 
 export default UsersSearch;

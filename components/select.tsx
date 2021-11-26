@@ -3,17 +3,17 @@ import { forwardRef } from 'react';
 import cn from '../utils/classnames';
 import FormField, { FormFieldProps } from './form-field';
 
-export interface InputProps
+export interface SelectProps
   extends FormFieldProps,
-    React.ComponentProps<'input'> {
+    React.ComponentProps<'select'> {
   noRightRound?: boolean;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ className, error, noRightRound, ...props }, ref) => {
     return (
       <FormField className={className} error={error}>
-        <input
+        <select
           ref={ref}
           className={cn(
             'form__field',
@@ -27,6 +27,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = 'Input';
+Select.displayName = 'Select';
 
-export default Input;
+export default Select;

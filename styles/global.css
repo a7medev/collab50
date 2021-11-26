@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.form__field {
+  @apply border-2 focus:outline-none px-4 py-3 rounded-lg transition-colors w-full border-gray-200 focus:border-green-500;
+}
+.form__field.error {
+  @apply border-red-200 focus:border-red-500 bg-red-100 placeholder-red-400;
+}
+
 [data-reach-menu-item][data-selected] {
   @apply bg-green-100 text-green-600 cursor-pointer;
 }
@@ -20,6 +27,11 @@
 [data-reach-custom-checkbox][data-state='unchecked'] {
   @apply bg-white;
 }
+
 [data-user-value] {
   @apply bg-green-100 text-green-600 rounded font-semibold;
+}
+
+[data-highlighted] {
+  @apply bg-green-50;
 }

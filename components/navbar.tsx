@@ -6,6 +6,7 @@ import { Menu, MenuList, MenuButton, MenuItem } from '@reach/menu-button';
 import cn from '../utils/classnames';
 import Avatar from './avatar';
 import { useRouter } from 'next/router';
+import UserDetails from './user-details';
 
 interface NavLinkProps {
   href: string;
@@ -71,14 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
               </MenuButton>
 
               <MenuList className="bg-white text-center rounded-lg border border-gray-200 p-2 mt-1 w-72">
-                <div className="flex items-center p-3">
-                  <Avatar username={user.username} />
-
-                  <div className="ml-3 text-left">
-                    <p className="text-lg">{user.name}</p>
-                    <p className="text-gray-500">@{user.username}</p>
-                  </div>
-                </div>
+                <UserDetails user={user} className="p-3" />
 
                 <MenuItem onSelect={handleLogout} className="px-4 rounded p-2">
                   Logout

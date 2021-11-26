@@ -1,6 +1,7 @@
 import type { Project, UsersOnProject } from '@prisma/client';
 import Link from 'next/link';
 
+import capetalize from '../utils/capetalize';
 import cn from '../utils/classnames';
 
 interface ProjectCardProps {
@@ -23,7 +24,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className }) => {
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-semibold">{project.project.name}</h3>
             <span className="rounded-full px-3 py-1 bg-green-500 text-white">
-              {project.role.toLowerCase()}
+              {capetalize(project.role)}
             </span>
           </div>
 
