@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import type { Todo, Project, UsersOnProject, User } from '@prisma/client';
+import { Role } from '@prisma/client';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 
@@ -71,6 +72,7 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
                 projectId={data.data.project.project.id}
                 className="col-span-2"
                 members={data.data.project.project.members}
+                canAdd={data.data.project.role === Role.OWNER}
               />
               <TodoList
                 className="col-span-4"
@@ -78,6 +80,10 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
                 projectId={data.data.project.project.id}
                 onItemCheck={handleItemCheck}
                 onAdd={handleAdd}
+                canEdit={
+                  data.data.project.role === Role.OWNER ||
+                  data.data.project.role === Role.EDITOR
+                }
               />
             </div>
           )

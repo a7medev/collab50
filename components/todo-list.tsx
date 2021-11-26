@@ -9,10 +9,12 @@ interface TodoListProps {
   onItemCheck: (itemId: number, checked: boolean) => void;
   todos: Todo[];
   className?: string;
+  canEdit?: boolean;
 }
 
 const TodoList: React.FC<TodoListProps> = ({
   className,
+  canEdit,
   todos,
   projectId,
   onAdd,
@@ -25,7 +27,7 @@ const TodoList: React.FC<TodoListProps> = ({
     <div className={className}>
       <h3 className="text-lg font-semibold mb-3">Todos</h3>
 
-      <NewTodoForm projectId={projectId} onAdd={onAdd} />
+      {canEdit && <NewTodoForm projectId={projectId} onAdd={onAdd} />}
 
       <div className="md:grid md:grid-cols-2 md:gap-4">
         <details open>
@@ -33,7 +35,12 @@ const TodoList: React.FC<TodoListProps> = ({
             Incomplete
           </summary>
           {incomplete.map((todo) => (
-            <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
+            <TodoItem
+              todo={todo}
+              key={todo.id}
+              onCheck={onItemCheck}
+              canEdit={canEdit}
+            />
           ))}
         </details>
 
@@ -42,7 +49,12 @@ const TodoList: React.FC<TodoListProps> = ({
             Completed
           </summary>
           {completed.map((todo) => (
-            <TodoItem todo={todo} key={todo.id} onCheck={onItemCheck} />
+            <TodoItem
+              todo={todo}
+              key={todo.id}
+              onCheck={onItemCheck}
+              canEdit={canEdit}
+            />
           ))}
         </details>
       </div>

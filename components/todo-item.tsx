@@ -6,10 +6,11 @@ import cn from '../utils/classnames';
 
 interface TodoItemProps {
   todo: Todo;
+  canEdit?: boolean;
   onCheck: (id: number, checked: boolean) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheck }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheck, canEdit }) => {
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
     onCheck(todo.id, checked);
@@ -31,6 +32,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheck }) => {
       )}
       onChange={handleChange}
       checked={todo.completed}
+      disabled={!canEdit}
     >
       {todo.title}
     </Checkbox>
