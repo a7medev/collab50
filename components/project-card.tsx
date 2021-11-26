@@ -13,7 +13,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, className }) => {
   const createdAt = new Date(project.project.createdAt).toLocaleString();
 
   return (
-    <Link href={`/projects/${project.id}`}>
+    <Link href={`/projects/${project.project.id}`}>
       <a>
         <div
           className={cn(

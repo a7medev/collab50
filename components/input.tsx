@@ -18,7 +18,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             'form__field',
             error && 'error',
-            noRightRound && 'rounded-r-none'
+            noRightRound && 'no-right-round'
           )}
           {...props}
         />

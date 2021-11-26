@@ -8,6 +8,9 @@
 .form__field.error {
   @apply border-red-200 focus:border-red-500 bg-red-100 placeholder-red-400;
 }
+.form__field.no-right-round {
+  @apply rounded-r-none;
+}
 
 [data-reach-menu-item][data-selected] {
   @apply bg-green-100 text-green-600 cursor-pointer;
