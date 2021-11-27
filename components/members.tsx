@@ -1,4 +1,5 @@
 import type { User, UsersOnProject } from '@prisma/client';
+import { Role } from '@prisma/client';
 import { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
@@ -10,7 +11,8 @@ import AddMemberForm from './add-member-form';
 interface MembersProps {
   projectId: number;
   className?: string;
-  canAdd?: boolean;
+  userId: number;
+  role: Role;
   members: (UsersOnProject & {
     user: Pick<User, 'id' | 'name' | 'username'>;
   })[];
@@ -18,7 +20,8 @@ interface MembersProps {
 
 const Members: React.FC<MembersProps> = ({
   className,
-  canAdd,
+  role,
+  userId,
   projectId,
   members,
 }) => {
@@ -28,7 +31,7 @@ const Members: React.FC<MembersProps> = ({
     <div className={className}>
       <h3 className="text-lg font-semibold mb-3">
         Members
-        {canAdd && (
+        {role === Role.OWNER && (
           <AddButton onClick={() => setShowAddDialog(true)} hint="Add member" />
         )}
       </h3>
@@ -47,7 +50,12 @@ const Members: React.FC<MembersProps> = ({
       </AnimatePresence>
 
       {members.map((member) => (
-        <Member member={member} key={member.id} />
+        <Member
+          member={member}
+          key={member.id}
+          canDelete={role === Role.OWNER || member.userId === userId}
+          self={member.userId === userId}
+        />
       ))}
     </div>
   );

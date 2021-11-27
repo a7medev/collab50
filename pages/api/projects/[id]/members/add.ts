@@ -2,10 +2,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import type { ValidationError } from 'yup';
 import { Role, UsersOnProject } from '@prisma/client';
 
-import type Response from '../../../../types/response';
-import prisma from '../../../../config/prisma';
-import userInCookies from '../../../../utils/user-in-cookies';
-import addMemberSchema from '../../../../validation/add-member-schema';
+import type Response from '../../../../../types/response';
+import prisma from '../../../../../config/prisma';
+import userInCookies from '../../../../../utils/user-in-cookies';
+import addMemberSchema from '../../../../../validation/add-member-schema';
 
 export default async function handler(
   req: NextApiRequest,

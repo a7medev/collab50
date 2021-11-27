@@ -28,7 +28,7 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({ projectId }) => {
   const onSubmit = async (data: unknown) => {
     setError(null);
 
-    const res = await fetch(`/api/projects/${projectId}/add-member`, {
+    const res = await fetch(`/api/projects/${projectId}/members/add`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {

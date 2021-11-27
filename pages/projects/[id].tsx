@@ -72,7 +72,8 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
                 projectId={data.data.project.project.id}
                 className="col-span-2"
                 members={data.data.project.project.members}
-                canAdd={data.data.project.role === Role.OWNER}
+                role={data.data.project.role}
+                userId={user.id}
               />
               <TodoList
                 className="col-span-4"
