@@ -3,6 +3,7 @@ import type { Todo } from '@prisma/client';
 
 import Checkbox from './checkbox';
 import cn from '../utils/classnames';
+import { motion } from 'framer-motion';
 
 interface TodoItemProps {
   todo: Todo;
@@ -25,17 +26,25 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheck, canEdit }) => {
   };
 
   return (
-    <Checkbox
-      className={cn(
-        'border hover:bg-green-50 hover:border-green-300 rounded-lg px-4 py-3 mb-3 flex items-center',
-        todo.completed && 'line-through text-gray-500'
-      )}
-      onChange={handleChange}
-      checked={todo.completed}
-      disabled={!canEdit}
+    <motion.div
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
     >
-      {todo.title}
-    </Checkbox>
+      <Checkbox
+        className={cn(
+          'border hover:bg-green-50 hover:border-green-300 rounded-lg px-4 py-3 mb-3 flex items-center',
+          todo.completed && 'line-through text-gray-500'
+        )}
+        onChange={handleChange}
+        checked={todo.completed}
+        disabled={!canEdit}
+      >
+        {todo.title}
+      </Checkbox>
+    </motion.div>
   );
 };
 

@@ -1,4 +1,5 @@
 import type { Todo } from '@prisma/client';
+import { AnimatePresence } from 'framer-motion';
 
 import NewTodoForm from './new-todo-form';
 import TodoItem from './todo-item';
@@ -34,28 +35,32 @@ const TodoList: React.FC<TodoListProps> = ({
           <summary className="font-bold italic mb-2 cursor-pointer">
             Incomplete
           </summary>
-          {incomplete.map((todo) => (
-            <TodoItem
-              todo={todo}
-              key={todo.id}
-              onCheck={onItemCheck}
-              canEdit={canEdit}
-            />
-          ))}
+          <AnimatePresence>
+            {incomplete.map((todo) => (
+              <TodoItem
+                todo={todo}
+                key={todo.id}
+                onCheck={onItemCheck}
+                canEdit={canEdit}
+              />
+            ))}
+          </AnimatePresence>
         </details>
 
         <details open>
           <summary className="font-bold italic mb-2 cursor-pointer">
             Completed
           </summary>
-          {completed.map((todo) => (
-            <TodoItem
-              todo={todo}
-              key={todo.id}
-              onCheck={onItemCheck}
-              canEdit={canEdit}
-            />
-          ))}
+          <AnimatePresence>
+            {completed.map((todo) => (
+              <TodoItem
+                todo={todo}
+                key={todo.id}
+                onCheck={onItemCheck}
+                canEdit={canEdit}
+              />
+            ))}
+          </AnimatePresence>
         </details>
       </div>
     </div>
