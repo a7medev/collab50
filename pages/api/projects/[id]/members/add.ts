@@ -77,6 +77,7 @@ export default async function handler(
         role: data.role as Role,
         projectId,
       },
+      select: { user: { select: { name: true, username: true } } },
     });
 
     res.json({ data: { member } });

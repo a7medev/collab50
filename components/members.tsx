@@ -1,8 +1,8 @@
-import type { User, UsersOnProject } from '@prisma/client';
 import { Role } from '@prisma/client';
 import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
 
+import type MemberT from '../types/member';
 import AddButton from './add-button';
 import Member from './member';
 import Dialog from './dialog';
@@ -13,9 +13,9 @@ interface MembersProps {
   className?: string;
   userId: number;
   role: Role;
-  members: (UsersOnProject & {
-    user: Pick<User, 'id' | 'name' | 'username'>;
-  })[];
+  members: MemberT[];
+  onAdd: (member: MemberT) => void;
+  onRemove: (memberId: number, self?: boolean) => void;
 }
 
 const Members: React.FC<MembersProps> = ({
@@ -24,6 +24,8 @@ const Members: React.FC<MembersProps> = ({
   userId,
   projectId,
   members,
+  onAdd,
+  onRemove,
 }) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
 
@@ -44,7 +46,13 @@ const Members: React.FC<MembersProps> = ({
           >
             <h3 className="text-lg font-semibold mb-4">Add Member</h3>
 
-            <AddMemberForm projectId={projectId} />
+            <AddMemberForm
+              projectId={projectId}
+              onAdd={(member) => {
+                setShowAddDialog(false);
+                onAdd(member);
+              }}
+            />
           </Dialog>
         )}
       </AnimatePresence>
@@ -53,7 +61,8 @@ const Members: React.FC<MembersProps> = ({
         <Member
           member={member}
           key={member.id}
-          canDelete={role === Role.OWNER || member.userId === userId}
+          canRemove={role === Role.OWNER || member.userId === userId}
+          onRemove={onRemove}
           self={member.userId === userId}
         />
       ))}

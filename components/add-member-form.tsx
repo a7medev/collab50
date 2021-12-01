@@ -1,21 +1,23 @@
+import { Role } from '@prisma/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 
 import type { ErrorResponse, SuccessResponse } from '../types/response';
+import type Member from '../types/member';
 import Button from './button';
 import ErrorBox from './error-box';
 import UsersSearch from './users-search';
 import addMemberSchema from '../validation/add-member-schema';
 import Select from './select';
-import { Role } from '.prisma/client';
 import capetalize from '../utils/capetalize';
 
 interface AddMemberFormProps {
   projectId: number;
+  onAdd: (member: Member) => void;
 }
 
-const AddMemberForm: React.FC<AddMemberFormProps> = ({ projectId }) => {
+const AddMemberForm: React.FC<AddMemberFormProps> = ({ projectId, onAdd }) => {
   const [error, setError] = useState<ErrorResponse | null>(null);
   const {
     register,
@@ -40,6 +42,12 @@ const AddMemberForm: React.FC<AddMemberFormProps> = ({ projectId }) => {
       const err: ErrorResponse = await res.json();
       return setError(err);
     }
+
+    const {
+      data: { member },
+    }: SuccessResponse<{ member: Member }> = await res.json();
+
+    onAdd(member);
   };
 
   return (

@@ -1,16 +1,17 @@
 import type { NextPage } from 'next';
-import type { Todo, Project, UsersOnProject, User } from '@prisma/client';
+import type { Todo, Project, UsersOnProject } from '@prisma/client';
 import { Role } from '@prisma/client';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
+import produce from 'immer';
 
 import type AuthPageProps from '../../types/auth-page-props';
+import type Member from '../../types/member';
 import type { SuccessResponse } from '../../types/response';
 import Layout from '../../components/layout';
 import ErrorBox from '../../components/error-box';
 import withAuth from '../../utils/with-auth';
 import TodoList from '../../components/todo-list';
-import produce from 'immer';
 import Members from '../../components/members';
 
 export const getServerSideProps = withAuth();
@@ -21,9 +22,7 @@ type Result = SuccessResponse<{
   project: UsersOnProject & {
     project: Project & {
       todos: Todo[];
-      members: (UsersOnProject & {
-        user: Pick<User, 'id' | 'name' | 'username'>;
-      })[];
+      members: Member[];
     };
   };
 }>;
@@ -34,7 +33,7 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
     `/api/projects/${router.query.id}`
   );
 
-  const handleAdd = (todo: Todo) => {
+  const handleAddItem = (todo: Todo) => {
     mutate((data) => {
       if (!data) return;
 
@@ -56,6 +55,32 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
     }, false);
   };
 
+  const handleAddMember = (member: Member) => {
+    mutate((data) => {
+      if (!data) return;
+
+      return produce(data, (draft) => {
+        draft.data.project.project.members.push(member);
+      });
+    });
+  };
+
+  const handleRemoveMember = (memberId: number, self?: boolean) => {
+    if (self) {
+      return router.push('/projects');
+    }
+
+    mutate((data) => {
+      if (!data) return;
+
+      return produce(data, (draft) => {
+        const { members } = draft.data.project.project;
+        const member = members.findIndex((it) => it.id === memberId);
+        members.splice(member, 1);
+      });
+    });
+  };
+
   return (
     <Layout title="Project" user={user}>
       <main className="container mx-auto p-6">
@@ -74,13 +99,15 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
                 members={data.data.project.project.members}
                 role={data.data.project.role}
                 userId={user.id}
+                onAdd={handleAddMember}
+                onRemove={handleRemoveMember}
               />
               <TodoList
                 className="col-span-4"
                 todos={data.data.project.project.todos}
                 projectId={data.data.project.project.id}
                 onItemCheck={handleItemCheck}
-                onAdd={handleAdd}
+                onAdd={handleAddItem}
                 canEdit={
                   data.data.project.role === Role.OWNER ||
                   data.data.project.role === Role.EDITOR
