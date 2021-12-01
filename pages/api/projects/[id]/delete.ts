@@ -38,7 +38,7 @@ export default async function handler(
 
   if (project.role !== Role.OWNER) {
     return res.status(403).json({
-      message: 'Only the owner and editors can add todos.',
+      message: 'Only the owner can delete a project.',
     });
   }
 

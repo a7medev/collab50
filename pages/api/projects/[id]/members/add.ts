@@ -1,15 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { ValidationError } from 'yup';
-import { Role, UsersOnProject } from '@prisma/client';
+import { Role } from '@prisma/client';
 
 import type Response from '../../../../../types/response';
+import type Member from '../../../../../types/member';
 import prisma from '../../../../../config/prisma';
 import userInCookies from '../../../../../utils/user-in-cookies';
 import addMemberSchema from '../../../../../validation/add-member-schema';
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Response<{ member: UsersOnProject }>>
+  res: NextApiResponse<Response<{ member: Member }>>
 ) {
   try {
     const user = await userInCookies(req.cookies);
@@ -77,7 +78,7 @@ export default async function handler(
         role: data.role as Role,
         projectId,
       },
-      select: { user: { select: { name: true, username: true } } },
+      include: { user: { select: { id: true, name: true, username: true } } },
     });
 
     res.json({ data: { member } });
