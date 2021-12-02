@@ -1,28 +1,26 @@
 # Collab50
 
+#### Video Demo: [https://youtu.be/TZ2PjGtvQK4](https://youtu.be/TZ2PjGtvQK4)
+
+#### Description:
+
 A project planning collaboration tool, built for teams.
 
 > This is built as CS50's final project for the course [CS50x](https://cs50.harvard.edu/x).
 
-## Website URL
+#### Website URL: [https://collab50.herokuapp.com](https://collab50.herokuapp.com).
 
-The website is live at [https://collab50.herokuapp.com](https://collab50.herokuapp.com).
-
-## Video Demo
-
-You can checkout the [video demo here](https://youtu.be/TZ2PjGtvQK4).
-
-## Setup Locally
+#### Setup Locally
 
 To setup the project locally you have to follow these steps:
 
-#### Step 1: Clone the repository
+##### Step 1: Clone the repository
 
-#### Step 2: Install Node.js
+##### Step 2: Install Node.js
 
 Make sure you have [Node.js](https://nodejs.org/en/) installed on your computer.
 
-#### Step 3: Install PostgreSQL
+##### Step 3: Install PostgreSQL
 
 Make sure you have PostgreSQL installed on your computer.
 
@@ -38,7 +36,7 @@ And add the connection configuration to your `.env` file in the root of the proj
 DATABASE_URL="postgresql://<user>:<password>@localhost/collab50"
 ```
 
-### Step 4: Build & Run the website
+##### Step 4: Build & Run the website
 
 Install the node modules using the command:
 
