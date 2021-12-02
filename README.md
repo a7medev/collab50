@@ -1,34 +1,54 @@
 # Collab50
 
-#### Video Demo: [https://youtu.be/TZ2PjGtvQK4](https://youtu.be/TZ2PjGtvQK4)
-
-#### Description:
-
 A project planning collaboration tool, built for teams, it allows multiple people to work on the same project, adding todos, and marking them as done, having different roles for the members and full control of access, I tried to make the website as accessible as possible with a little bit of animations.
 
-#### Technologies:
+> This is built as a final project for the course [CS50x](https://cs50.harvard.edu/x).
+
+## Video Demo: [https://youtu.be/TZ2PjGtvQK4](https://youtu.be/TZ2PjGtvQK4)
+
+## Website URL: [https://collab50.herokuapp.com](https://collab50.herokuapp.com).
+
+## Website Features
+
+- Register/Login
+- Create a project
+- Add project todos
+- Add/Remove project members
+
+## Technologies
 
 - TypeScript
 - React.js
-- Next.js
-- Prisma
-- TailwindCSS
+- Next.js (for server-side rendering)
+- Prisma (for database)
+- Formik & Yup (for validation)
+- TailwindCSS (for styling)
 
-> This is built as CS50's final project for the course [CS50x](https://cs50.harvard.edu/x).
+## Project Structure
 
-#### Website URL: [https://collab50.herokuapp.com](https://collab50.herokuapp.com).
+- `components/*`: The UI components used in the website.
+- `config/*`: The config files (prisma config file).
+- `images/*`: The images used in the website.
+- `pages/*`: The page components of the website.
+- `pages/api/*`: The API routes of the website (the backend side).
+- `prisma/*`: The Prisma schema and database migrations.
+- `public/*`: Website public files (favicon for example).
+- `styles/*`: CSS files used in the website.
+- `types/*`: TypeScript types used in the project.
+- `utils/*`: Utility functions used across the project.
+- `validation/*`: Yup validation schemas used for forms and API routes.
 
-#### Setup Locally
+## Setup Locally
 
 To setup the project locally you have to follow these steps:
 
-##### Step 1: Clone the repository
+### Step 1: Clone the repository
 
-##### Step 2: Install Node.js
+### Step 2: Install Node.js
 
 Make sure you have [Node.js](https://nodejs.org/en/) installed on your computer.
 
-##### Step 3: Install PostgreSQL
+### Step 3: Install PostgreSQL
 
 Make sure you have PostgreSQL installed on your computer.
 
@@ -44,7 +64,7 @@ And add the connection configuration to your `.env` file in the root of the proj
 DATABASE_URL="postgresql://<user>:<password>@localhost/collab50"
 ```
 
-##### Step 4: Build & Run the website
+### Step 4: Build & Run the website
 
 Install the node modules using the command:
 
