@@ -4,7 +4,7 @@
 
 #### Description:
 
-A project planning collaboration tool, built for teams.
+A project planning collaboration tool, built for teams, it allows multiple people to work on the same project, adding todos, and marking them as done, having different roles for the members and full control of access, I tried to make the website as accessible as possible with a little bit of animations.
 
 > This is built as CS50's final project for the course [CS50x](https://cs50.harvard.edu/x).
 
