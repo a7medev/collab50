@@ -2,6 +2,14 @@
 
 A project planning collaboration tool, built for teams, it allows multiple people to work on the same project, adding todos, and marking them as done, having different roles for the members and full control of access, I tried to make the website as accessible as possible with a little bit of animations.
 
+Once you open the website you can see the home page and you can register or login if you have an existing account and the login session is remembered for 7 days, then you're automatiacally logged out.
+
+After login you are redirected to the projects page where you see all the projects you have created and you can create a new one, if you click on a project you can see the members and todos of the project, allowing you to add members from Collab50 to collaborate with you on your project as a viewer that can see the progress of the project, an editor that can add/manage project todo, or an owner that can add/remove members in the project.
+
+The data in the website is updated in roughly realtime, which allows members and users to see the data and project change in action which makes collaboration much more easy and effecient!
+
+By utilizing the powers of web ARIA, the full website is accessible, you can navigate between website elements using the keyboard pretty easily, or use a voice over technology if you're blind or having eye issues.
+
 > This is built as a final project for the course [CS50x](https://cs50.harvard.edu/x).
 
 ## Video Demo: [https://youtu.be/TZ2PjGtvQK4](https://youtu.be/TZ2PjGtvQK4)
@@ -23,6 +31,8 @@ A project planning collaboration tool, built for teams, it allows multiple peopl
 - Prisma (for database)
 - Formik & Yup (for validation)
 - TailwindCSS (for styling)
+- Framer Motion (animations)
+- Reach UI (accessibility)
 
 ## Project Structure
 
