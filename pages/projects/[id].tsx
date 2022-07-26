@@ -95,7 +95,7 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
             <div className="grid grid-cols-6 gap-6">
               <Members
                 projectId={data.data.project.project.id}
-                className="col-span-2"
+                className="lg:col-span-2 col-span-6"
                 members={data.data.project.project.members}
                 role={data.data.project.role}
                 userId={user.id}
@@ -103,7 +103,7 @@ const Project: NextPage<ProjectProps> = ({ user }) => {
                 onRemove={handleRemoveMember}
               />
               <TodoList
-                className="col-span-4"
+                className="lg:col-span-4 col-span-6"
                 todos={data.data.project.project.todos}
                 projectId={data.data.project.project.id}
                 onItemCheck={handleItemCheck}
